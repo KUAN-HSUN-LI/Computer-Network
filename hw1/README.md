@@ -10,17 +10,17 @@
 
 ### What I have done?
 * Client
-    * receive/send messages to single server with IP/Port $(\checkmark)$
-    * translate host name into IP and receive/send message to server $(\checkmark)$
-    * support -n -t commands $(\checkmark)$
-    * print output according to page.10 $(\checkmark)$
-    * receive/send messages to multiple servers $(\checkmark)$
+    * receive/send messages to single server with IP/Port (O)
+    * translate host name into IP and receive/send message to server (O)
+    * support -n -t commands (O)
+    * print output according to page.10 (O)
+    * receive/send messages to multiple servers (O)
 
 * Server
-    * receive/send messages from one client $(\checkmark)$
-    * receive/send messages from multiple clients $(\checkmark)$
-    * print output according to page.11 $(\checkmark)$
+    * receive/send messages from one client (O)
+    * receive/send messages from multiple clients (O)
+    * print output according to page.11 (O)
 
 * Bonus
-    * Client can ping multiple servers simultaneously $(\checkmark)$
+    * Client can ping multiple servers simultaneously (O)
 
