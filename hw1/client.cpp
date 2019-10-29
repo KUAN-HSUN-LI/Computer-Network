@@ -48,7 +48,7 @@ void runSocket(int ipNum = 0) {
 
     cli.sin_family = AF_INET;
     cli.sin_port = htons(atoi(port[ipNum]));
-    cli.sin_addr.s_addr = htonl(INADDR_ANY);
+    cli.sin_addr.s_addr = inet_addr(ip[ipNum]);
 
     if (connect(cliFd, (sockaddr *)&cli, sizeof(cli)) < 0) {
         mux.lock();
