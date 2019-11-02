@@ -67,10 +67,10 @@ void runSocket(int ipNum = 0) {
         } else if (packetNum == 0) {
             break;
         }
+        start = clock();
         if (rec > 0) {
             send(cliFd, &ip[ipNum], sizeof(ip[ipNum]), 0);
         }
-        start = clock();
         rec = recv(cliFd, buf, sizeof(buf), 0);
         stop = clock();
         double duration = double(stop - start) / CLOCKS_PER_SEC * 1000;
