@@ -13,9 +13,7 @@ using namespace std;
 mutex mux;
 
 char buf[1024];
-int packetNum = -1;
 int delay = 1;
-int num = 1;
 char ip[1024][1024];
 char port[1024][1024];
 
@@ -33,7 +31,7 @@ void setIpAddress(int num) {
     inet_ntop(AF_INET, addr, ip[num], sizeof(ip[num]));
 }
 
-void runSocket(int ipNum = 0) {
+void runSocket(int ipNum = 0, int packetNum = 0) {
     int cliFd;
     sockaddr_in cli;
 
@@ -76,9 +74,9 @@ void runSocket(int ipNum = 0) {
         double duration = double(stop - start) / CLOCKS_PER_SEC * 1000;
         mux.lock();
         if (rec > 0 && duration < delay) {
-            cerr << "recv from " << ip[ipNum] << ":" << port[ipNum] << ", RTT = " << setprecision(3) << fixed << duration << " msec" << endl;
+            cout << "recv from " << ip[ipNum] << ":" << port[ipNum] << ", RTT = " << setprecision(3) << fixed << duration << " msec" << endl;
         } else {
-            cerr << "timeout when connect to " << ip[ipNum] << ":" << port[ipNum] << endl;
+            cout << "timeout when connect to " << ip[ipNum] << ":" << port[ipNum] << endl;
         }
         mux.unlock();
         sleep(1);
@@ -87,6 +85,8 @@ void runSocket(int ipNum = 0) {
 }
 
 int main(int argc, char *argv[]) {
+    int packetNum = -1;
+    int num = 1;
     const char *delim = ":";
     if (strcmp(argv[1], "-n") == 0) {
         packetNum = atoi(argv[2]);
@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
         strcpy(ip[i], strtok(argv[i + num], delim));
         strcpy(port[i], strtok(NULL, delim));
         setIpAddress(i);
-        t[i] = thread(runSocket, i);
+        t[i] = thread(runSocket, i, packetNum);
     }
     for (int i = 0; i < total; ++i) {
         t[i].join();
